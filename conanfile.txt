@@ -1,0 +1,6 @@
+[requires]
+gflags/2.2.2
+flatbuffers/22.12.06
+
+[generators]
+cmake
