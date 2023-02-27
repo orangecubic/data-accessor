@@ -33,17 +33,17 @@ DSResult<uint64_t> deleteUser(DSContext* context, EntityId userId) {
     co_return std::make_tuple(DSNoError, count);
 }
 
-DSResult<std::vector<User>> getUsers(DSContext* context) {
+DSResult<std::vector<User>> getUsers(DSContext* context, uint32_t limit, uint32_t offset) {
     std::vector<User> users;
 
-    auto [error] = co_await getUsers(context, users);
+    auto [error] = co_await getUsers(context, users, limit, offset);
 
     co_return std::make_tuple(error, users);
 }
 
-DSVoidResult getUsers(DSContext* context, std::vector<User>& resultContainer) {;
+DSVoidResult getUsers(DSContext* context, std::vector<User>& resultContainer, uint32_t limit, uint32_t offset) {;
 
-    auto [error, result] = co_await context->executeSelect("select * from users", std::make_tuple());
+    auto [error, result] = co_await context->executeSelect("select * from users limit ?, ?", std::make_tuple(offset, limit));
 
     for (auto row : result.rows()) {
         

@@ -50,4 +50,4 @@ DSResult<uint64_t> createBattle(DSContext* context, std::string_view settingJson
 
 DSResult<FinishBattleError> finishBattle(DSContext* context, EntityId battleId, EntityId winnerId);
 
-DSVoidResult getBattleHistories(DSContext* context, EntityId userId, std::vector<BattleResult>& resultContainer);
+DSVoidResult getBattleHistories(DSContext* context, EntityId userId, std::vector<BattleResult>& resultContainer, uint32_t limit = 100, uint32_t offset = 0);

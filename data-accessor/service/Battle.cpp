@@ -59,8 +59,8 @@ DSResult<FinishBattleError> finishBattle(DSContext* context, EntityId battleId, 
     });
 }
 
-DSVoidResult getBattleHistories(DSContext* context, EntityId userId, std::vector<BattleResult>& resultContainer) {
-    auto [error, results] = co_await context->executeSelect("select * from battle_results where user_id = ?", std::make_tuple(userId));
+DSVoidResult getBattleHistories(DSContext* context, EntityId userId, std::vector<BattleResult>& resultContainer, uint32_t limit, uint32_t offset) {
+    auto [error, results] = co_await context->executeSelect("select * from battle_results where user_id = ? limit ?, ?", std::make_tuple(userId, offset, limit));
 
     DS_RETURN_ON_ERROR(error);
 

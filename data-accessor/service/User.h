@@ -34,9 +34,9 @@ DSResult<CreateUserResult> createUser(DSContext* context, std::string_view nickn
 
 DSResult<uint64_t> deleteUser(DSContext* context, EntityId userId);
 
-DSResult<std::vector<User>> getUsers(DSContext* context);
+DSResult<std::vector<User>> getUsers(DSContext* context, uint32_t limit = 100, uint32_t offset = 0);
 
-DSVoidResult getUsers(DSContext* context, std::vector<User>& resultContainer);
+DSVoidResult getUsers(DSContext* context, std::vector<User>& resultContainer, uint32_t limit = 100, uint32_t offset = 0);
 
 DSResult<bool, User> getUser(DSContext* context, std::string_view nickname);
 

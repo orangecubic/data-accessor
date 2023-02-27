@@ -41,10 +41,12 @@ DSResult<uint64_t> cancelMatchingRequest(DSContext* context, EntityId matchingRe
 
 }
 
-DSVoidResult getAvailableRequest(DSContext* context, std::chrono::seconds afterSeconds, std::vector<MatchingRequest>& resultContainer) {
-    auto [error, result] = co_await context->executeSelect("select * from matching_requests where status = ? and created_at < now(3) - interval ? second", std::make_tuple(
+DSVoidResult getAvailableRequest(DSContext* context, std::chrono::seconds afterSeconds, std::vector<MatchingRequest>& resultContainer, uint32_t limit, uint32_t offset) {
+    auto [error, result] = co_await context->executeSelect("select * from matching_requests where status = ? and created_at < now(3) - interval ? second limit ?, ?", std::make_tuple(
         (int)MatchingRequestStatus::Wait,
-        afterSeconds.count()
+        afterSeconds.count(),
+        offset,
+        limit
     ));
     
     DS_RETURN_ON_ERROR(error);

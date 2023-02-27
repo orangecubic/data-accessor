@@ -52,7 +52,7 @@ DSResult<CreateMatchingRequestResult> createMatchingRequest(DSContext* context, 
 
 DSResult<uint64_t> cancelMatchingRequest(DSContext* context, EntityId matchingRequestId);
 
-DSVoidResult getAvailableRequest(DSContext* context, std::chrono::seconds afterSeconds, std::vector<MatchingRequest>& resultContainer);
+DSVoidResult getAvailableRequest(DSContext* context, std::chrono::seconds afterSeconds, std::vector<MatchingRequest>& resultContainer, uint32_t limit = 100, uint32_t offset = 0);
 
 DSResult<MatchCompleteResult> matchComplete(DSContext* context, const std::vector<EntityId>& requests, std::string_view settingJson);
 
